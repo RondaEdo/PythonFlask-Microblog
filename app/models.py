@@ -37,6 +37,17 @@ class User(UserMixin, db.Model):
                 # return 'https://www.gravatar.com/avatar/{}?d=monsterid&s={}'.format(digest, size)
                 return f'https://robohash.org/{digest}.png?size={size}x{size}&set=set5'
 
+        def follow(self, user):
+                if not self.is_following(user):
+                        self.followed.append(user)
+
+        def unfollow(self, user):
+                if self.is_following(user):
+                        self.followed.remove(user)
+
+        def is_following(self, user):
+                return self.followed.filter(followers.c.followed_id == user.id).count() > 0
+
         def __rep__(self):
                 # return '<User {}>'.format(self.username)
                 return f'<User {self.username}>'
