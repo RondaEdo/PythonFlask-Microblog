@@ -51,6 +51,13 @@ class User(UserMixin, db.Model):
         def __rep__(self):
                 # return '<User {}>'.format(self.username)
                 return f'<User {self.username}>'
+
+        def followed_posts(self):
+                return Post.query.join(
+                        followers, (followers.c.followed_id == Post.user_id)).filter(
+                                followers.c.follower_id == self.id).order_by(
+                                        Post.timestamp.desc())
+
         
 class Post(db.Model):
         id = db.Column(db.Integer, primary_key=True)
