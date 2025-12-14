@@ -34,8 +34,8 @@ class User(UserMixin, db.Model):
         
         def avatar(self, size):
                 digest = md5(self.email.lower().encode('utf-8')).hexdigest()
-                # return 'https://www.gravatar.com/avatar/{}?d=monsterid&s={}'.format(digest, size)
-                return f'https://robohash.org/{digest}.png?size={size}x{size}&set=set5'
+                return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest, size)
+                # return f'https://robohash.org/{digest}.png?size={size}x{size}&set=set5'
 
         def follow(self, user):
                 if not self.is_following(user):
@@ -55,8 +55,8 @@ class User(UserMixin, db.Model):
         def followed_posts(self):
                 followed = Post.query.join(
                         followers, (followers.c.followed_id == Post.user_id)).filter(
-                                followers.c.follower_id == self.id).order_by(
-                                        Post.timestamp.desc())
+                                followers.c.follower_id == self.id)
+                # .order_by(Post.timestamp.desc())
                 own = Post.query.filter_by(user_id=self.id)                
                 return followed.union(own).order_by(Post.timestamp.desc())
 

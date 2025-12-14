@@ -5,12 +5,16 @@ from app.models import User, Post
 
 class UserModelCase(unittest.TestCase):
         def setUp(self):
+                self.app_context = app.app_context()
+                self.app_context.push()
+
                 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
                 db.create_all()
 
         def tearDown(self):
                 db.session.remove()
                 db.drop_all()
+                self.app_context.pop()
         
         def test_password_hashing(self):
                 u = User(username='susan')
@@ -29,7 +33,7 @@ class UserModelCase(unittest.TestCase):
                 db.session.add(u2)
                 db.session.commit()
                 self.assertEqual(u1.followed.all(), [])
-                self.assertEqual(u1.follower.all(), [])
+                self.assertEqual(u1.followers.all(), [])
 
                 u1.follow(u2)
                 db.session.commit()
