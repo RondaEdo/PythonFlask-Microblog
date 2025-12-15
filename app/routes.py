@@ -74,12 +74,15 @@ def register():
 @app.route('/user/<username>')
 @login_required
 def user(username):
-        user = User.query.filter_by(username=current_user.username).first_or_404()
+        user = User.query.filter_by(username=username).first_or_404()
         posts = [
                 {'author': user, 'body': 'Test post #1'},
                 {'author': user, 'body': 'Test post #2'}
         ]
-        return render_template('user.html', title='Profile', user=user, posts=posts)
+        form = EmptyForm()
+        return render_template('user.html', title='Profile', user=user, posts=posts, form=form)
+
+
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
@@ -133,6 +136,7 @@ def unfollow(username):
                 return redirect(url_for('user', username=username))
         else:
                 return redirect(url_for('index'))
+
 
 
 

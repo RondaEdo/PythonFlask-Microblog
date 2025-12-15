@@ -34,8 +34,8 @@ class User(UserMixin, db.Model):
         
         def avatar(self, size):
                 digest = md5(self.email.lower().encode('utf-8')).hexdigest()
-                return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest, size)
-                # return f'https://robohash.org/{digest}.png?size={size}x{size}&set=set5'
+                # return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest, size)
+                return f'https://robohash.org/{digest}.png?size={size}x{size}&set=set5'
 
         def follow(self, user):
                 if not self.is_following(user):
