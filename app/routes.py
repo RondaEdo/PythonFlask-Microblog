@@ -80,7 +80,6 @@ def user(username):
         return render_template('user.html', title='Profile', user=user, posts=posts, form=form)
 
 
-
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -133,6 +132,12 @@ def unfollow(username):
                 return redirect(url_for('user', username=username))
         else:
                 return redirect(url_for('index'))
+        
+@app.route('/explore')
+@login_required
+def explore():
+        posts = Post.query.order_by(Post.timestamp.desc()).all()
+        return render_template('index.html', title='Explore', posts=posts)
 
 
 
