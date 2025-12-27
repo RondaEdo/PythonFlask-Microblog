@@ -156,6 +156,19 @@
             color: #28a745;
             font-size: 1.1rem;
         }
+
+        .message-item.warning {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.05), rgba(255, 193, 7, 0.1));
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .message-item.warning:before {
+            content: "⚠️";
+            color: #ffc107;
+            font-size: 1.1rem;
+        }
         
         .content-container {
             background: white;
@@ -259,6 +272,8 @@
                 <li class="message-item error">{{ message }}</li>
                 {% elif category == 'success' %}
                 <li class="message-item success">{{ message }}</li>
+                {% elif category == 'warning' %}
+                <li class="message-item warning">{{ message }}</li>
                 {% else %}
                 <li class="message-item">{{ message }}</li>
                 {% endif %}
