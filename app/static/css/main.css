@@ -1,0 +1,207 @@
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --primary: #119DA4;      /* Dark Cyan - Main brand color */
+    --secondary: #0C7489;    /* Deeper Cyan - For secondary elements */
+    --accent: #D4A418;       /* Warm Gold - For accents and highlights */
+    --light-bg: #F0F7F9;     /* Very light cyan tint for backgrounds */
+    --text-dark: #1A3A40;    /* Dark teal for text */
+    --text-light: #5A8A8F;   /* Light cyan for secondary text */
+    --danger: #dc3545;       /* Bootstrap red for errors */
+}
+
+body {
+    background: linear-gradient(135deg, var(--light-bg) 0%, #E0F0F3 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text-dark);
+}
+
+.nav-container {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(17, 157, 164, 0.1);
+    margin-bottom: 30px;
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-brand {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.4rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-brand i {
+    font-size: 1.6rem;
+}
+
+.nav-link {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(17, 157, 164, 0.3);
+}
+
+.nav-link.active {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+}
+
+.nav-link:active {
+    transform: translateY(0);
+}
+
+.divider {
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--primary), transparent);
+    margin: 30px 0;
+    border: none;
+    opacity: 0.3;
+}
+
+.message-list {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 5px 20px rgba(17, 157, 164, 0.08);
+}
+
+.message-item {
+    padding: 12px 16px;
+    background: linear-gradient(135deg, rgba(17, 157, 164, 0.05), rgba(17, 157, 164, 0.1));
+    border-radius: 10px;
+    margin: 8px 0;
+    border: 1px solid rgba(17, 157, 164, 0.2);
+    color: var(--secondary);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.message-item:before {
+    content: "💡";
+    font-size: 1.1rem;
+    color: var(--accent);
+}
+
+.message-item.error {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.05), rgba(220, 53, 69, 0.1));
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    color: #721c24;
+    border-left: 4px solid var(--danger);
+}
+
+.message-item.error:before {
+    content: "⚠️";
+    color: var(--danger);
+}
+
+.message-item.success {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.05), rgba(40, 167, 69, 0.1));
+    border: 1px solid rgba(40, 167, 69, 0.3);
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+
+.message-item.success:before {
+    content: "✅";
+    color: #28a745;
+    font-size: 1.1rem;
+}
+
+.message-item.warning {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.05), rgba(255, 193, 7, 0.1));
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    color: #856404;
+    border-left: 4px solid #ffc107;
+}
+
+.message-item.warning:before {
+    content: "⚠️";
+    color: #ffc107;
+    font-size: 1.1rem;
+}
+
+.content-container {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(17, 157, 164, 0.08);
+    margin-top: 20px;
+    border: 1px solid rgba(17, 157, 164, 0.1);
+}
+
+/* Additional styling for better text contrast */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.text-muted {
+    color: var(--text-light) !important;
+}
+
+a:not(.nav-link):not(.nav-brand) {
+    color: var(--secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:not(.nav-link):not(.nav-brand):hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/* Button styling that matches the theme */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(17, 157, 164, 0.3);
+    color: white;
+}

@@ -71,7 +71,7 @@ def register():
                 user.set_password(form.password.data)
                 db.session.add(user)
                 db.session.commit()
-                flash('Congratulations, you are now a registered user!')
+                flash('Congratulations, you are now a registered user!', 'success')
                 return redirect(url_for('login'))
         return render_template('register.html', title='Register', form=form)
 
@@ -99,7 +99,7 @@ def edit_profile():
                 current_user.username = form.username.data
                 current_user.about_me = form.about_me.data
                 db.session.commit()
-                flash('Your changes have been saved!')
+                flash('Your changes have been saved!', 'success')
                 return redirect(url_for('edit_profile'))
         elif request.method == 'GET':
                 form.username.data = current_user.username
@@ -113,14 +113,14 @@ def follow(username):
         if form.validate_on_submit():
                 user = User.query.filter_by(username=username).first()
                 if user is None:
-                        flash(f'User {username} not found.')
+                        flash(f'User {username} not found.', 'error')
                         return redirect(url_for('index'))
                 if user == current_user:
-                        flash('You cannot follow yourself.')
+                        flash('You cannot follow yourself.', 'warning')
                         return redirect(url_for('user', username=username))
                 current_user.follow(user)
                 db.session.commit()
-                flash(f'You are following {username}!')
+                flash(f'You are following {username}!', 'success')
                 return redirect(url_for('user', username=username))
         else:
                 return redirect(url_for('index'))
@@ -132,14 +132,14 @@ def unfollow(username):
         if form.validate_on_submit():
                 user = User.query.filter_by(username=username).first()  
                 if user is None:
-                        flash(f'User {username} not found.')
+                        flash(f'User {username} not found.', 'error')
                         return redirect(url_for('index'))
                 if user == current_user:
-                        flash(f'You cannot unfollow yourself!')
+                        flash(f'You cannot unfollow yourself!', 'warning')
                         return redirect(url_for('user', username=username))
                 current_user.unfollow(user)
                 db.session.commit()
-                flash(f'You are not following {username}')
+                flash(f'You are not following {username}', 'success')
                 return redirect(url_for('user', username=username))
         else:
                 return redirect(url_for('index'))
@@ -165,7 +165,7 @@ def reset_password_request():
                 user = User.query.filter_by(email=form.email.data).first()
                 if user:
                         send_password_reset_email(user)
-                flash('Check your email for instructions to reset your password')
+                flash('Check your email for instructions to reset your password', 'success')
                 return redirect(url_for('login'))
         return render_template('reset_password_request.html', title='Reset Password', form=form)
 
@@ -180,7 +180,7 @@ def reset_password(token):
         if form.validate_on_submit():
                 user.set_password(form.password.data)
                 db.session.commit()
-                flash('Your password has been reset.')
+                flash('Your password has been reset.' 'success')
                 return redirect(url_for('login'))
         return render_template('reset_password.html', form=form)
 
