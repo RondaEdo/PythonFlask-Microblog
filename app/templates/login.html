@@ -1,13 +1,45 @@
 {% extends "base.html" %}
 
-{% block head %}
-    {{ super() }}
-    <!-- Additional CSS for login page -->
+{% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 {% endblock %}
 
 {% block content %}
-<div class="auth-container">
+<div class="login-container">
+    <!-- Left: Brand Section -->
+    <div class="brand-section">
+        <div class="brand-logo">
+            <i class="bi bi-chat-heart-fill"></i>
+            Microblog
+        </div>
+        
+        <p class="brand-tagline">
+            Connect with friends, share your thoughts, and explore the world around you on Microblog.
+        </p>
+        
+        <ul class="brand-features">
+            <li>
+                <i class="bi bi-people-fill"></i>
+                <span>Connect with friends and followers</span>
+            </li>
+            <li>
+                <i class="bi bi-megaphone-fill"></i>
+                <span>Share your thoughts and updates</span>
+            </li>
+            <li>
+                <i class="bi bi-compass-fill"></i>
+                <span>Discover new content and people</span>
+            </li>
+            <li>
+                <i class="bi bi-shield-lock-fill"></i>
+                <span>Your privacy and security matter</span>
+            </li>
+        </ul>
+    </div>
+    
+    <!-- Right: Form Section -->
+    <div class="form-section">
+        <!-- Login Card -->
         <div class="auth-card">
             <div class="auth-header">
                 <h1><i class="bi bi-door-open-fill"></i> Sign In</h1>
@@ -19,7 +51,7 @@
                 
                 <div class="form-group">
                     <label for="{{ form.username.id }}">
-                        <i class="bi bi-person-circle"></i> {{ form.username.label.text }}
+                        {{ form.username.label.text }}
                     </label>
                     {{ form.username(size=32, class="form-control", placeholder="Enter your username") }}
                     {% for error in form.username.errors %}
@@ -31,7 +63,7 @@
                 
                 <div class="form-group">
                     <label for="{{ form.password.id }}">
-                        <i class="bi bi-lock-fill"></i> {{ form.password.label.text }}
+                        {{ form.password.label.text }}
                     </label>
                     {{ form.password(size=32, class="form-control", placeholder="Enter your password") }}
                     {% for error in form.password.errors %}
@@ -57,16 +89,30 @@
                 <a href="{{ url_for('reset_password_request') }}" class="auth-link">
                     <i class="bi bi-key-fill"></i> Forgot Password? Click to reset it
                 </a>
-                <a href="{{ url_for('register') }}" class="auth-link">
-                    <i class="bi bi-person-plus-fill"></i> New User? Click to Register!
-                </a>
             </div>
         </div>
-</div>    
+        
+        <!-- Create Account Card -->
+        <div class="create-account-card">
+            <p class="create-account-text">
+                Don't have an account yet?
+            </p>
+            <a href="{{ url_for('register') }}" class="create-account-btn">
+                <i class="bi bi-person-plus-fill"></i> Create New Account
+            </a>
+        </div>
+        
+        <!-- App Description -->
+        <div class="app-description">
+            <p>
+                <strong>Microblog</strong> is a modern social platform where you can share moments, connect with friends, 
+                and discover interesting content from around the world.
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
-{% block scripts %}
-    {{ super() }}
-    <!-- Additional JS for login page -->
+{% block extra_js %}
     <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
 {% endblock %}

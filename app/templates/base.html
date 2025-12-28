@@ -19,7 +19,7 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
-    {% block head %}{% endblock %}
+    {% block extra_css %}{% endblock %}
     
     {% if title %}
     <title>{{ title }} - Microblog</title>
@@ -30,6 +30,7 @@
 </head>
 <body>
     <!-- NAVIGATION BAR -->
+    {% if not hide_navbar %}
     <div class="nav-container">
         <div class="nav-left">
             <a href="{{ url_for('index') }}" class="nav-brand">
@@ -71,6 +72,7 @@
     
     <!-- Same hr, styled modern -->
     <hr class="divider">
+    {% endif %}
     
     <!-- Updated messages block with error styling -->
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -101,7 +103,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
-    {% block scripts %}{% endblock %}
+    {% block extra_js %}{% endblock %}
 
 </body>
 </html>

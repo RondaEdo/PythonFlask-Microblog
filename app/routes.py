@@ -54,12 +54,12 @@ def login():
                 if not next_page or urlparse(next_page).netloc != '':
                         next_page = url_for('index')
                 return redirect(next_page)
-        return render_template('login.html', title='Sign In', form=form)
+        return render_template('login.html', title='Sign In', form=form, hide_navbar=True)
 
 @app.route('/logout')
 def logout():
         logout_user()
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
