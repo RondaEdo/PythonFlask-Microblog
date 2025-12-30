@@ -1,28 +1,101 @@
 {% extends "base.html" %}
 
 {% block content %}
-        <h1>Hi, {{current_user.username.title()}}!</h1>
+<!-- Hero Welcome Section -->
+<div class="welcome-hero">
+    <h1 class="welcome-title">
+        <i class="bi bi-emoji-smile-fill"></i>
+        Welcome back, {{ current_user.username.title() }}!
+    </h1>
+    <p class="welcome-subtitle">
+        {{ "Share what's on your mind with your community" if form else "Browse through posts from people you follow" }}
+    </p>
+</div>
 
-        {% if form %}
-        <form action="" method="post">
-                {{ form.hidden_tag() }}
-                <p>
-                        {{ form.post.label }} <br>
-                        {{ form.post(cols=32, rows=4) }} <br>
-                        {% for error in form.post.errors %}
-                        <span style="color: red">[{{ error }}]</span>
-                        {% endfor %}
-                </p>
-                <p>{{ form.submit() }}</p>
-        </form>
+<!-- Create Post Form -->
+{% if form %}
+<div class="post-form-container">
+    <h2><i class="bi bi-pencil-square"></i> Create New Post</h2>
+    <form action="" method="post" class="post-form">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group">
+            <label for="{{ form.post.id }}">
+                {{ form.post.label.text }}
+            </label>
+            {{ form.post(cols=32, rows=4, class="form-control", placeholder="What's on your mind? Share your thoughts...") }}
+            {% for error in form.post.errors %}
+            <div class="error-message">
+                <i class="bi bi-exclamation-circle"></i> {{ error }}
+            </div>
+            {% endfor %}
+        </div>
+        
+        {{ form.submit(class="submit-btn") }}
+    </form>
+</div>
+{% endif %}
+
+<!-- Posts Section -->
+<div class="posts-container-wrapper">
+    <div class="posts-header">
+        <h2><i class="bi bi-newspaper"></i> Recent Posts</h2>
+        {% if posts %}
+        <span class="posts-count">{{ posts|length }} post{{ 's' if posts|length != 1 else '' }}</span>
         {% endif %}
+    </div>
+    
+    {% if posts %}
+    <div class="posts-container">
         {% for post in posts %}
-                {% include '_post.html' %}
+            {% include '_post.html' %}
         {% endfor %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if prev_url or next_url %}
+    <div class="pagination-container">
         {% if prev_url %}
-        <a href="{{ prev_url }}">Newer posts</a>
+        <a href="{{ prev_url }}" class="pagination-btn">
+            <i class="bi bi-arrow-left"></i> Newer Posts
+        </a>
+        {% else %}
+        <span class="pagination-btn disabled">
+            <i class="bi bi-arrow-left"></i> Newer Posts
+        </span>
         {% endif %}
+        
+        <span class="pagination-info">
+            Browse through posts
+        </span>
+        
         {% if next_url %}
-        <a href="{{ next_url }}">Older posts</a>
+        <a href="{{ next_url }}" class="pagination-btn">
+            Older Posts <i class="bi bi-arrow-right"></i>
+        </a>
+        {% else %}
+        <span class="pagination-btn disabled">
+            Older Posts <i class="bi bi-arrow-right"></i>
+        </span>
         {% endif %}
+    </div>
+    {% endif %}
+    
+    {% else %}
+    <!-- Empty State -->
+    <div class="empty-state">
+        <div class="empty-state-icon">
+            <i class="bi bi-chat-square-text"></i>
+        </div>
+        <h3 class="empty-state-title">No posts yet</h3>
+        <p class="empty-state-text">
+            {% if form %}
+            Be the first to share something! Write your first post above.
+            {% else %}
+            When people you follow post, you'll see their updates here.
+            {% endif %}
+        </p>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

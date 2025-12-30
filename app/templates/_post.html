@@ -1,4 +1,4 @@
-<table>
+<!-- <table>
         <tr valign="top">
                 <td><img src="{{ post.author.avatar(36) }}" alt=""></td>
                 <td>
@@ -8,4 +8,33 @@
                         says: <br>{{ post.body }}
                 </td>
         </tr>
-</table>
+</table> -->
+
+<div class="post-item">
+        <div class="post-header">
+            <img src="{{ post.author.avatar(36) }}" alt="{{ post.author.username }}" class="post-avatar">
+            <div class="post-author-info">
+                <a href="{{ url_for('user', username=post.author.username) }}" class="post-author-name">
+                    {{ post.author.username.title() }}
+                </a>
+            </div>
+        </div>
+        
+        <div class="post-body">
+            {{ post.body }}
+        </div>
+        
+        <div class="post-footer">
+            <div class="post-actions">
+                <button class="post-action-btn">
+                    <i class="bi bi-heart"></i> Like
+                </button>
+                <button class="post-action-btn">
+                    <i class="bi bi-chat"></i> Comment
+                </button>
+                <button class="post-action-btn">
+                    <i class="bi bi-share"></i> Share
+                </button>
+            </div>
+        </div>
+    </div>
