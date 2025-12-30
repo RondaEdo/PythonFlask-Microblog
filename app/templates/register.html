@@ -1,39 +1,294 @@
 {% extends "base.html" %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <style>
+        /* Override for register page to center form */
+        .register-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 40px 20px;
+        }
+        
+        .register-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(17, 157, 164, 0.1);
+            border: 1px solid rgba(17, 157, 164, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .register-header h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .register-subtitle {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        /* Form styling matching auth.css */
+        .register-form .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .register-form label {
+            display: block;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .register-form .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #dddfe2;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: #fff;
+            color: var(--text-dark);
+        }
+        
+        .register-form .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(17, 157, 164, 0.15);
+        }
+        
+        .error-message {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: rgba(220, 53, 69, 0.08);
+            border-radius: 6px;
+            border-left: 3px solid var(--danger);
+        }
+        
+        .auth-submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .auth-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(17, 157, 164, 0.3);
+        }
+        
+        .auth-links {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .auth-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .auth-link:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        
+        .password-input-wrapper {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .password-toggle:hover {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--primary);
+        }
+        
+        @media (max-width: 576px) {
+            .register-container {
+                padding: 20px 15px;
+            }
+            
+            .register-card {
+                padding: 30px 25px;
+            }
+            
+            .register-header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
-
-        <h1>Register</h1>
-        <form action="" method="post">
-                {{ form.hidden_tag() }}
-                <p>
-                        {{ form.username.label }} <br>
-                        {{ form.username(size=32) }} <br>
-                        {% for error in form.username.errors %}
-                        <span style="color: red">[{{ error }}]</span>
-                        {% endfor %}
-                </p>
-                <p>
-                        {{ form.email.label }} <br>
-                        {{ form.email(size=64) }} <br>
-                        {% for error in form.email.errors %}
-                        <span style="color: red">[{{ error }}]</span>
-                        {% endfor %}
-                </p>
-                <p>
-                        {{ form.password.label }} <br>
-                        {{ form.password(size=32) }} <br>
-                        {% for error in form.password.errors %}
-                        <span style="color: red">[{{ error }}]</span>
-                        {% endfor %}
-                </p>
-                <p>
-                        {{ form.password2.label }} <br>
-                        {{ form.password2(size=32) }} <br>
-                        {% for error in form.password2.errors %}
-                        <span style="color: red">[{{ error }}]</span>
-                        {% endfor %}
-                </p>
-                <p>{{ form.submit() }}</p>
+<div class="register-container">
+    <div class="register-card">
+        <div class="register-header">
+            <h1><i class="bi bi-person-plus-fill"></i> Create Account</h1>
+            <p class="register-subtitle">Join Microblog and start sharing your thoughts with the world</p>
+        </div>
+        
+        <form action="" method="post" novalidate class="register-form">
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                <label for="{{ form.username.id }}">
+                    {{ form.username.label.text }}
+                </label>
+                {{ form.username(size=32, class="form-control", placeholder="Choose a username") }}
+                {% for error in form.username.errors %}
+                <div class="error-message">
+                    <i class="bi bi-exclamation-circle"></i> {{ error }}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.email.id }}">
+                    {{ form.email.label.text }}
+                </label>
+                {{ form.email(size=64, class="form-control", placeholder="Enter your email address") }}
+                {% for error in form.email.errors %}
+                <div class="error-message">
+                    <i class="bi bi-exclamation-circle"></i> {{ error }}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.password.id }}">
+                    {{ form.password.label.text }}
+                </label>
+                <div class="password-input-wrapper">
+                    {{ form.password(size=32, class="form-control", placeholder="Create a strong password", id="password-input") }}
+                    <button type="button" class="password-toggle" id="password-toggle">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                {% for error in form.password.errors %}
+                <div class="error-message">
+                    <i class="bi bi-exclamation-circle"></i> {{ error }}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.password2.id }}">
+                    {{ form.password2.label.text }}
+                </label>
+                <div class="password-input-wrapper">
+                    {{ form.password2(size=32, class="form-control", placeholder="Confirm your password", id="password2-input") }}
+                    <button type="button" class="password-toggle" id="password2-toggle">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                {% for error in form.password2.errors %}
+                <div class="error-message">
+                    <i class="bi bi-exclamation-circle"></i> {{ error }}
+                </div>
+                {% endfor %}
+            </div>
+            
+            {{ form.submit(class="auth-submit-btn") }}
         </form>
+        
+        <div class="auth-links">
+            <p>
+                Already have an account?
+                <a href="{{ url_for('login') }}" class="auth-link">
+                    <i class="bi bi-door-open-fill"></i> Sign in
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
 
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Password toggle functionality
+    const passwordToggle = document.getElementById('password-toggle');
+    const passwordInput = document.getElementById('password-input');
+    const password2Toggle = document.getElementById('password2-toggle');
+    const password2Input = document.getElementById('password2-input');
+    
+    function setupPasswordToggle(toggleBtn, inputField) {
+        if (toggleBtn && inputField) {
+            toggleBtn.addEventListener('click', function() {
+                const type = inputField.getAttribute('type') === 'password' ? 'text' : 'password';
+                inputField.setAttribute('type', type);
+                this.classList.toggle('active');
+                this.innerHTML = type === 'password' ? 
+                    '<i class="bi bi-eye"></i>' : 
+                    '<i class="bi bi-eye-slash"></i>';
+            });
+        }
+    }
+    
+    setupPasswordToggle(passwordToggle, passwordInput);
+    setupPasswordToggle(password2Toggle, password2Input);
+    
+    // Form submission loading state
+    const form = document.querySelector('.register-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('.auth-submit-btn');
+            if (submitBtn) {
+                submitBtn.classList.add('loading');
+                submitBtn.innerHTML = 'Creating Account...';
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

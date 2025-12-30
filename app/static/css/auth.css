@@ -1,11 +1,11 @@
 /* Facebook-style layout */
 .login-container {
     display: flex;
-    min-height: 100vh;
+    min-height: calc(100vh - 40px);
     align-items: center;
     justify-content: center;
     padding: 40px 20px;
-    background: #f0f2f5;
+    background: #f0f2f5 !important;
 }
 
 .brand-section {

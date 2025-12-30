@@ -73,7 +73,7 @@ def register():
                 db.session.commit()
                 flash('Congratulations, you are now a registered user!', 'success')
                 return redirect(url_for('login'))
-        return render_template('register.html', title='Register', form=form)
+        return render_template('register.html', title='Register', form=form, hide_navbar=True)
 
 @app.route('/user/<username>')
 @login_required
