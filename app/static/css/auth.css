@@ -1,4 +1,12 @@
-.login-container {
+/* ============================================
+   AUTHENTICATION PAGES STYLES
+   Login, Register, Reset Password
+   ============================================ */
+
+/* ===== 1. COMMON AUTH LAYOUT & CONTAINERS ===== */
+
+/* Base container for all auth pages */
+.auth-page-container {
     display: flex;
     min-height: calc(100vh - 40px);
     align-items: center;
@@ -7,10 +15,31 @@
     background: #f0f2f5 !important;
 }
 
+/* Centered container for register/reset pages */
+.centered-auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 40px);
+    padding: 40px 20px;
+    background: #f0f2f5 !important;
+}
+
+/* ===== 2. LOGIN PAGE SPECIFIC ===== */
+
+/* Login two-column layout */
+.login-layout {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Brand/Left Column */
 .brand-section {
     flex: 1;
     max-width: 580px;
-    padding-right: 60px;
     text-align: left;
 }
 
@@ -64,20 +93,27 @@
     justify-content: center;
 }
 
+/* Form/Right Column */
 .form-section {
     flex: 1;
     max-width: 450px;
 }
 
-/* Auth card styling */
+/* ===== 3. COMMON AUTH COMPONENTS ===== */
+
+/* Auth Card - Base card for all auth forms */
 .auth-card {
     background: white;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    margin-bottom: 30px;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 15px 40px rgba(17, 157, 164, 0.1);
+    border: 1px solid rgba(17, 157, 164, 0.1);
     text-align: center;
+}
+
+/* Card Header */
+.auth-header {
+    margin-bottom: 25px;
 }
 
 .auth-header h1 {
@@ -98,9 +134,13 @@
     line-height: 1.4;
 }
 
-/* Form styling */
+/* Form Elements */
+.auth-form {
+    margin: 0;
+}
+
 .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
     text-align: left;
 }
 
@@ -114,21 +154,24 @@
 
 .auth-form-control {
     width: 100%;
-    padding: 12px 16px;
+    padding: 14px 16px;
     border: 1px solid #dddfe2;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1rem;
     transition: all 0.2s ease;
     background: #fff;
     color: var(--text-dark);
+    font-family: 'Manrope', sans-serif;
 }
 
 .auth-form-control:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(17, 157, 164, 0.15);
+    background: #f8f9fa;
 }
 
+/* Checkbox/Remember Me */
 .form-check-group {
     margin: 20px 0;
     text-align: left;
@@ -162,291 +205,7 @@
     user-select: none;
 }
 
-.auth-submit-btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    border: none;
-    color: white;
-    padding: 14px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1.05rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    position: relative;
-    overflow: hidden;
-}
-
-.auth-submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(17, 157, 164, 0.3);
-}
-
-.error-message {
-    color: var(--danger);
-    font-size: 0.85rem;
-    margin-top: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    background: rgba(220, 53, 69, 0.08);
-    border-radius: 6px;
-    border-left: 3px solid var(--danger);
-}
-
-.auth-links {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.auth-link {
-    color: var(--secondary);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
-    padding: 8px;
-    border-radius: 6px;
-}
-
-.auth-link:hover {
-    color: var(--primary);
-    background: rgba(17, 157, 164, 0.08);
-    text-decoration: none;
-}
-
-.create-account-card {
-    background: white;
-    border-radius: 12px;
-    padding: 20px 25px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    text-align: center;
-}
-
-.create-account-text {
-    color: var(--text-dark);
-    margin-bottom: 15px;
-    font-size: 0.95rem;
-}
-
-.create-account-btn {
-    display: inline-block;
-    background: #FFE082; /* Cream yellow */
-    color: #222 !important; /* Very dark gray */
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    font-size: 1rem;
-}
-
-.create-account-btn:hover {
-    background: #FFD54F; /* More saturated yellow */
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 213, 79, 0.3);
-    color: #222 !important;
-    text-decoration: none;
-}
-
-/* Footer text */
-.app-description {
-    margin-top: 30px;
-    color: var(--text-light);
-    font-size: 0.85rem;
-    line-height: 1.5;
-    text-align: center;
-    max-width: 450px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Ripple animation */
-@keyframes ripple {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
-
-/* Responsive design */
-@media (max-width: 992px) {
-    .login-container {
-        flex-direction: column;
-        padding: 30px 20px;
-    }
-    
-    .brand-section {
-        padding-right: 0;
-        text-align: center;
-        margin-bottom: 40px;
-        max-width: 100%;
-    }
-    
-    .brand-tagline {
-        font-size: 1.5rem;
-        margin: 0 auto 30px;
-    }
-    
-    .brand-features {
-        display: none;
-    }
-}
-
-@media (max-width: 576px) {
-    .auth-card {
-        padding: 20px;
-    }
-    
-    .brand-logo {
-        font-size: 2.8rem;
-    }
-    
-    .brand-tagline {
-        font-size: 1.3rem;
-    }
-}
-
-/* Animations */
-.form-control,
-.form-group {
-    transition: transform 0.2s ease;
-}
-
-.register-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-    padding: 40px 20px;
-}
-
-.register-card {
-    background: white;
-    border-radius: 16px;
-    padding: 40px;
-    box-shadow: 0 20px 60px rgba(17, 157, 164, 0.1);
-    border: 1px solid rgba(17, 157, 164, 0.1);
-    max-width: 500px;
-    width: 100%;
-}
-
-.register-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.register-header h1 {
-    color: var(--primary);
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-}
-
-.register-subtitle {
-    color: var(--text-light);
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-/* Form styling matching auth.css */
-.register-form .form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.register-form label {
-    display: block;
-    color: var(--text-dark);
-    font-weight: 500;
-    margin-bottom: 8px;
-    font-size: 0.95rem;
-}
-
-.register-form .form-control {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1px solid #dddfe2;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-    background: #fff;
-    color: var(--text-dark);
-}
-
-.register-form .form-control:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(17, 157, 164, 0.15);
-}
-
-.error-message {
-    color: var(--danger);
-    font-size: 0.85rem;
-    margin-top: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    background: rgba(220, 53, 69, 0.08);
-    border-radius: 6px;
-    border-left: 3px solid var(--danger);
-}
-
-.auth-submit-btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    border: none;
-    color: white;
-    padding: 14px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1.05rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.auth-submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(17, 157, 164, 0.3);
-}
-
-.auth-links {
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.auth-link {
-    color: var(--secondary);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.auth-link:hover {
-    color: var(--primary);
-    text-decoration: underline;
-}
-
+/* Password Toggle */
 .password-input-wrapper {
     position: relative;
 }
@@ -470,16 +229,338 @@
     color: var(--primary);
 }
 
+/* Buttons */
+.auth-submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none;
+    color: white;
+    padding: 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(17, 157, 164, 0.3);
+}
+
+/* Error Messages */
+.error-message {
+    color: var(--danger);
+    font-size: 0.85rem;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: rgba(220, 53, 69, 0.08);
+    border-radius: 8px;
+    border-left: 3px solid var(--danger);
+}
+
+/* Links Section */
+.auth-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.auth-link {
+    color: var(--secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    padding: 8px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.auth-link:hover {
+    color: var(--primary);
+    background: rgba(17, 157, 164, 0.08);
+    text-decoration: none;
+}
+
+/* ===== 4. LOGIN PAGE SPECIFIC COMPONENTS ===== */
+
+/* Create Account Card (Login page only) */
+.create-account-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 25px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    text-align: center;
+    margin-top: 30px;
+}
+
+.create-account-text {
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.create-account-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #FFE082, #FFD54F);
+    color: #222 !important;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1rem;
+}
+
+.create-account-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 213, 79, 0.3);
+    color: #222 !important;
+    text-decoration: none;
+}
+
+/* App Description */
+.app-description {
+    margin-top: 30px;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    text-align: center;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===== 5. REGISTER PAGE ===== */
+
+.register-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.register-header h1 {
+    color: var(--primary);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.register-subtitle {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* ===== 6. RESET PASSWORD PAGE ===== */
+
+.reset-header {
+    margin-bottom: 30px;
+}
+
+.reset-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(17, 157, 164, 0.1), rgba(12, 116, 137, 0.1));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2.5rem;
+    color: var(--primary);
+}
+
+.reset-title {
+    color: var(--primary);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.reset-subtitle {
+    color: var(--text-light);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 5px;
+}
+
+.reset-instructions {
+    background: linear-gradient(135deg, rgba(17, 157, 164, 0.05), rgba(17, 157, 164, 0.02));
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: left;
+    border: 1px solid rgba(17, 157, 164, 0.1);
+}
+
+.reset-instructions h3 {
+    color: var(--primary);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.reset-instructions ul {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--text-dark);
+}
+
+.reset-instructions li {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.reset-links {
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.reset-link {
+    color: var(--secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.reset-link:hover {
+    color: var(--primary);
+    background: rgba(17, 157, 164, 0.08);
+    text-decoration: none;
+}
+
+.security-note {
+    margin-top: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.08), rgba(40, 167, 69, 0.04));
+    border-radius: 10px;
+    border-left: 4px solid #28a745;
+    color: #155724;
+    font-size: 0.85rem;
+    text-align: left;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.security-note i {
+    color: #28a745;
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+/* ===== 7. ANIMATIONS ===== */
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* ===== 8. RESPONSIVE DESIGN ===== */
+
+/* Tablet and below */
+@media (max-width: 992px) {
+    .login-layout {
+        flex-direction: column;
+        gap: 40px;
+        padding: 30px 20px;
+    }
+    
+    .brand-section {
+        padding-right: 0;
+        text-align: center;
+        margin-bottom: 40px;
+        max-width: 100%;
+    }
+    
+    .brand-tagline {
+        font-size: 1.5rem;
+        margin: 0 auto 30px;
+    }
+    
+    .brand-features {
+        display: none;
+    }
+    
+    .form-section {
+        max-width: 100%;
+    }
+}
+
+/* Mobile */
 @media (max-width: 576px) {
-    .register-container {
+    .auth-page-container,
+    .centered-auth-container {
         padding: 20px 15px;
     }
     
-    .register-card {
-        padding: 30px 25px;
+    .auth-card {
+        padding: 25px 20px;
     }
     
-    .register-header h1 {
-        font-size: 1.5rem;
+    .brand-logo {
+        font-size: 2.5rem;
+    }
+    
+    .brand-logo i {
+        font-size: 3rem;
+    }
+    
+    .brand-tagline {
+        font-size: 1.3rem;
+    }
+    
+    .auth-header h1,
+    .register-header h1,
+    .reset-title {
+        font-size: 1.6rem;
+    }
+    
+    .reset-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+    
+    .auth-links,
+    .reset-links {
+        flex-direction: column;
+    }
+    
+    .create-account-card {
+        padding: 15px 20px;
     }
 }
