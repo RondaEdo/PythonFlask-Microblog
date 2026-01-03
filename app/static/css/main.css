@@ -684,8 +684,8 @@ a:not(.nav-link):not(.nav-brand):hover {
 }
 
 .profile-name-badge {
-    background: var(--accent);
-    color: white;
+    background: #FFD54F;
+    color: var(--primary);
     font-size: 0.8rem;
     padding: 4px 12px;
     border-radius: 20px;
@@ -700,7 +700,7 @@ a:not(.nav-link):not(.nav-brand):hover {
     padding: 20px;
     background: linear-gradient(135deg, rgba(17, 157, 164, 0.05), rgba(17, 157, 164, 0.02));
     border-radius: 12px;
-    border-left: 4px solid var(--accent);
+    border-left: 4px solid #FFD54F;
 }
 
 .profile-stats {
@@ -1103,7 +1103,7 @@ a:not(.nav-link):not(.nav-brand):hover {
         padding: 15px;
         background: white;
         border-radius: 8px;
-        border-left: 3px solid var(--accent);
+        border-left: 3px solid #FFD54F;
     }
     
     /* Responsive Design */
