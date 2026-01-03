@@ -1,25 +1,177 @@
 {% extends "base.html" %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
 {% block content %}
-
-        <h1>Edit Profile</h1>
-        <form action="" method="post">
-                {{ form.hidden_tag() }}
-                <p>
-                        {{ form.username.label }} <br>
-                        {{ form.username(size=32) }} <br>
-                        {% for error in form.username.errors %}
-                        <span style="color: red">[{{ error }}]</span>
-                        {% endfor %}
-                </p>
-                <p>
-                        {{ form.about_me.label }} <br>
-                        {{ form.about_me(cols=50, rows=4) }} <br>
-                        {% for error in form.about_me.errors %} <br>
-                        <span style="color: red">[{{ error }}]</span>
-                        {% endfor %}
-                </p>
-                <p>{{ form.submit() }}</p>
+<div class="edit-profile-container">
+    <!-- Header -->
+    <div class="edit-profile-header">
+        <h1>
+            <i class="bi bi-person-badge-fill"></i>
+            Edit Your Profile
+        </h1>
+        <p class="edit-profile-subtitle">
+            Update your username and bio to let others know more about you
+        </p>
+    </div>
+    
+    <!-- Profile Form -->
+    <div class="profile-form-card">
+        <form action="" method="post" novalidate class="profile-form" id="profileForm">
+            {{ form.hidden_tag() }}
+            
+            <!-- Username Field -->
+            <div class="form-group">
+                <label for="{{ form.username.id }}">
+                    <i class="bi bi-person-circle"></i>
+                    {{ form.username.label.text }}
+                </label>
+                {{ form.username(size=32, class="form-control", placeholder="Enter your new username") }}
+                <div class="char-counter" id="username-counter">
+                    {{ form.username.data|length if form.username.data else 0 }}/32 characters
+                </div>
+                {% for error in form.username.errors %}
+                <div class="error-message">
+                    <i class="bi bi-exclamation-circle"></i> {{ error }}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- About Me Field -->
+            <div class="form-group">
+                <label for="{{ form.about_me.id }}">
+                    <i class="bi bi-chat-square-text"></i>
+                    {{ form.about_me.label.text }}
+                </label>
+                {{ form.about_me(cols=50, rows=4, class="form-control form-control-textarea", 
+                    placeholder="Tell others about yourself... What are your interests?") }}
+                <div class="char-counter" id="bio-counter">
+                    {{ form.about_me.data|length if form.about_me.data else 0 }}/280 characters
+                </div>
+                {% for error in form.about_me.errors %}
+                <div class="error-message">
+                    <i class="bi bi-exclamation-circle"></i> {{ error }}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <a href="{{ url_for('user', username=current_user.username) }}" class="cancel-btn">
+                    <i class="bi bi-x-circle"></i> Cancel
+                </a>
+                {{ form.submit(class="submit-btn") }}
+            </div>
         </form>
+    </div>
+    
+    <!-- Profile Preview -->
+    <div class="profile-preview">
+        <h3>
+            <i class="bi bi-eye-fill"></i>
+            Profile Preview
+        </h3>
+        <div class="preview-content">
+            <div class="preview-avatar">
+                {% if current_user.avatar(80) %}
+                <img src="{{ current_user.avatar(80) }}" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%;">
+                {% else %}
+                <i class="bi bi-person" style="font-size: 2rem;"></i>
+                {% endif %}
+            </div>
+            <div class="preview-info">
+                <div class="preview-username" id="preview-username">
+                    {{ form.username.data if form.username.data else current_user.username }}
+                </div>
+                <div class="preview-bio" id="preview-bio">
+                    {% if form.about_me.data %}
+                    {{ form.about_me.data }}
+                    {% elif current_user.about_me %}
+                    {{ current_user.about_me }}
+                    {% else %}
+                    <em>No bio yet. Tell others about yourself!</em>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
 
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const usernameInput = document.querySelector('#{{ form.username.id }}');
+    const bioInput = document.querySelector('#{{ form.about_me.id }}');
+    const usernameCounter = document.getElementById('username-counter');
+    const bioCounter = document.getElementById('bio-counter');
+    const previewUsername = document.getElementById('preview-username');
+    const previewBio = document.getElementById('preview-bio');
+    const form = document.getElementById('profileForm');
+    
+    // Update character counters and preview
+    function updateCounters() {
+        // Username counter
+        const usernameLength = usernameInput.value.length;
+        usernameCounter.textContent = `${usernameLength}/32 characters`;
+        
+        if (usernameLength > 28) {
+            usernameCounter.classList.add('limit-warning');
+        } else {
+            usernameCounter.classList.remove('limit-warning');
+        }
+        
+        // Bio counter
+        const bioLength = bioInput.value.length;
+        bioCounter.textContent = `${bioLength}/280 characters`;
+        
+        if (bioLength > 250) {
+            bioCounter.classList.add('limit-warning');
+        } else if (bioLength > 280) {
+            bioCounter.classList.remove('limit-warning');
+            bioCounter.classList.add('limit-exceeded');
+        } else {
+            bioCounter.classList.remove('limit-warning', 'limit-exceeded');
+        }
+        
+        // Update preview
+        previewUsername.textContent = usernameInput.value || '{{ current_user.username }}';
+        previewBio.textContent = bioInput.value || 
+            (bioInput.value === '' ? '<em>No bio yet. Tell others about yourself!</em>' : 
+            '{{ current_user.about_me if current_user.about_me else "" }}');
+        
+        if (!bioInput.value && !'{{ current_user.about_me }}') {
+            previewBio.innerHTML = '<em>No bio yet. Tell others about yourself!</em>';
+        }
+    }
+    
+    // Initialize counters
+    updateCounters();
+    
+    // Add event listeners for real-time updates
+    usernameInput.addEventListener('input', updateCounters);
+    bioInput.addEventListener('input', updateCounters);
+    
+    // Form submission loading state
+    form.addEventListener('submit', function(e) {
+        const submitBtn = this.querySelector('.submit-btn');
+        if (submitBtn) {
+            submitBtn.classList.add('loading');
+            submitBtn.innerHTML = '<span>Saving Changes...</span>';
+        }
+    });
+    
+    // Auto-resize textarea
+    bioInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+    
+    // Initialize textarea height
+    bioInput.style.height = 'auto';
+    bioInput.style.height = (bioInput.scrollHeight) + 'px';
+});
+</script>
 {% endblock %}
