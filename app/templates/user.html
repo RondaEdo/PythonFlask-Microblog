@@ -1,46 +1,148 @@
 {% extends "base.html" %}
 
-{% block content %}
-
-        <table>
-                <tr valign="top">
-                        <td><img src="{{ user.avatar(128) }}"></td>
-                        <td>
-                                <h1>User: {{ user.username.title() }}</h1>
-                                {% if user.about_me %} <p>{{ user.about_me }}</p> {% endif %}
-                                {% if user.last_seen %} <p>Last seen on: {{ user.last_seen }}</p> {% endif %}
-                                <p>
-                                        {{ user.followers.count() }} follower{% if user.followers.count() != 1 %}s{% endif %},  {{ user.followed.count() }} following.
-                                </p>
-                                {% if user == current_user %} 
-                                <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
-                                {% elif not current_user.is_following(user) %}
-                                <p>
-                                        <form action="{{ url_for('follow', username=user.username) }}" method="post">
-                                                {{ form.hidden_tag() }}
-                                                {{ form.submit(value='Follow') }}
-                                        </form>
-                                </p>
-                                {% else %}
-                                <p>
-                                        <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
-                                                {{ form.hidden_tag() }}
-                                                {{ form.submit(value='Unfollow') }}
-                                        </form>
-                                </p>
-                                {% endif %}
-                        </td>
-                </tr>
-        </table>
-        <hr>
-        {% for post in posts %}
-                {% include '_post.html' %}
-        {% endfor %}
-        {% if prev_url %}
-        <a href="{{ prev_url }}">Newer posts</a>
-        {% endif %}
-        {% if next_url %}
-        <a href="{{ next_url }}">Older posts</a>
-        {% endif %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 {% endblock %}
 
+{% block content %}
+<!-- Profile Header Section -->
+<div class="profile-header">
+    <div class="profile-content">
+        <!-- Avatar -->
+        <div class="profile-avatar-container">
+            <img src="{{ user.avatar(150) }}" class="profile-avatar" alt="{{ user.username }}">
+        </div>
+        
+        <!-- User Info -->
+        <div class="profile-info">
+            <div class="profile-name">
+                {{ user.username.title() }}
+                {% if user == current_user %}
+                <span class="profile-name-badge">You</span>
+                {% endif %}
+            </div>
+            
+            <!-- About Me -->
+            {% if user.about_me %}
+            <div class="profile-bio">
+                <i class="bi bi-quote"></i> {{ user.about_me }}
+            </div>
+            {% endif %}
+            
+            <!-- User Stats -->
+            <div class="profile-stats">
+                <div class="profile-stat">
+                    <span class="stat-number">{{ user.followers.count() }}</span>
+                    <span class="stat-label">Followers</span>
+                </div>
+                <div class="profile-stat">
+                    <span class="stat-number">{{ user.followed.count() }}</span>
+                    <span class="stat-label">Following</span>
+                </div>
+                <div class="profile-stat">
+                    <span class="stat-number">{{ posts|length }}</span>
+                    <span class="stat-label">Posts</span>
+                </div>
+            </div>
+            
+            <!-- Last Seen -->
+            {% if user.last_seen %}
+            <div class="last-seen">
+                <i class="bi bi-clock-history"></i>
+                Last seen on: {{ user.last_seen }}
+            </div>
+            {% endif %}
+            
+            <!-- Action Buttons -->
+            <div class="profile-actions">
+                {% if user == current_user %}
+                <a href="{{ url_for('edit_profile') }}" class="profile-btn profile-btn-edit">
+                    <i class="bi bi-pencil-square"></i> Edit Profile
+                </a>
+                {% elif not current_user.is_following(user) %}
+                <form action="{{ url_for('follow', username=user.username) }}" method="post" style="margin: 0;">
+                    {{ form.hidden_tag() }}
+                    <button type="submit" class="profile-btn profile-btn-follow">
+                        <i class="bi bi-person-plus"></i> Follow
+                    </button>
+                </form>
+                {% else %}
+                <form action="{{ url_for('unfollow', username=user.username) }}" method="post" style="margin: 0;">
+                    {{ form.hidden_tag() }}
+                    <button type="submit" class="profile-btn profile-btn-unfollow">
+                        <i class="bi bi-person-dash"></i> Unfollow
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- User's Posts Section -->
+<div class="user-posts-section">
+    <div class="user-posts-header">
+        <h2 class="user-posts-title">
+            <i class="bi bi-newspaper"></i> Recent Posts
+        </h2>
+        {% if posts %}
+        <span class="user-posts-count">
+            {{ posts.total if posts.total else posts|length }} post{{ 's' if (posts.total if posts.total else posts|length) != 1 else '' }}
+        </span>
+        {% endif %}
+    </div>
+    
+    {% if posts %}
+    <div class="posts-container">
+        {% for post in posts %}
+            {% include '_post.html' %}
+        {% endfor %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if prev_url or next_url %}
+    <div class="user-pagination">
+        {% if prev_url %}
+        <a href="{{ prev_url }}" class="pagination-btn">
+            <i class="bi bi-arrow-left"></i> Newer Posts
+        </a>
+        {% else %}
+        <span class="pagination-btn disabled">
+            <i class="bi bi-arrow-left"></i> Newer Posts
+        </span>
+        {% endif %}
+        
+        <span class="pagination-info">
+            Browse user's posts
+        </span>
+        
+        {% if next_url %}
+        <a href="{{ next_url }}" class="pagination-btn">
+            Older Posts <i class="bi bi-arrow-right"></i>
+        </a>
+        {% else %}
+        <span class="pagination-btn disabled">
+            Older Posts <i class="bi bi-arrow-right"></i>
+        </span>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    {% else %}
+    <!-- Empty State -->
+    <div class="no-posts">
+        <div class="no-posts-icon">
+            <i class="bi bi-chat-square-text"></i>
+        </div>
+        <h3 class="no-posts-title">No posts yet</h3>
+        <p class="no-posts-text">
+            {% if user == current_user %}
+            You haven't posted anything yet. Share your first post!
+            {% else %}
+            {{ user.username.title() }} hasn't posted anything yet.
+            {% endif %}
+        </p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
