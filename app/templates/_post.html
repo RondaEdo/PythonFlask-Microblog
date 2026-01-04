@@ -17,6 +17,7 @@
                 <a href="{{ url_for('user', username=post.author.username) }}" class="post-author-name">
                     {{ post.author.username.title() }}
                 </a>
+                <span class="post-timestamp">{{ moment(post.timestamp).fromNow() }}</span>
             </div>
         </div>
         

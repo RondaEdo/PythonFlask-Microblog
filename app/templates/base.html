@@ -100,10 +100,15 @@
         {% block content %}{% endblock %}
     </div>
     
+    {% block scripts %}
+        {{ moment.include_moment() }}
+    {% endblock %}
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
     {% block extra_js %}{% endblock %}
 
+    
 </body>
 </html>
