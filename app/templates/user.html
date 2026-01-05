@@ -49,7 +49,7 @@
             {% if user.last_seen %}
             <div class="last-seen">
                 <i class="bi bi-clock-history"></i>
-                Last seen on: {{ moment(user.last_seen).format('LLL') }}
+                Last online on: {{ moment(user.last_seen).format('LLL') }}
             </div>
             {% endif %}
             
