@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 # 2. THIRD PARTY IMPORTS
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
+from flask_babel import _
 
 # 3. LOCAL APPLICATION IMPORTS
 from app import app, db
@@ -28,7 +29,7 @@ def index():
                 post = Post(body=form.post.data, author=current_user)
                 db.session.add(post)
                 db.session.commit()
-                flash('Your post is now live!', 'success')
+                flash(_('Your post is now live!'), 'success')
                 return redirect(url_for('index'))
         # Pagination
         page = request.args.get('page', 1, type=int)
