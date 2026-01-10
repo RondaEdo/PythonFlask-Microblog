@@ -14,12 +14,16 @@
         <div class="post-header">
             <img src="{{ post.author.avatar(36) }}" alt="{{ post.author.username }}" class="post-avatar">
             <div class="post-author-info">
+                {% set user_link %}
                 <a href="{{ url_for('user', username=post.author.username) }}" class="post-author-name">
                     {{ post.author.username.title() }}
                 </a>
-                <span class="post-timestamp">{{ moment(post.timestamp).fromNow() }}</span>
+                {% endset %}
+                <span class="post-timestamp">{{ _('%(username)s said %(when)s', username=user_link,  when=moment(post.timestamp).fromNow()) }}</span>
+                <!-- <span class="post-timestamp">{{ moment(post.timestamp).fromNow() }}</span> -->
             </div>
         </div>
+
         
         <div class="post-body">
             {{ post.body }}
