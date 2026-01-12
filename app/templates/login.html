@@ -12,29 +12,29 @@
         <div class="brand-section">
             <div class="brand-logo">
                 <i class="bi bi-chat-heart-fill"></i>
-                Microblog
+                {{ _('Microblog') }}
             </div>
             
             <p class="brand-tagline">
-                Connect with friends, share your thoughts, and explore the world around you on Microblog.
+                {{ _('Connect with friends, share your thoughts, and explore the world around you on') }} Microblog.
             </p>
             
             <ul class="brand-features">
                 <li>
                     <i class="bi bi-people-fill"></i>
-                    <span>Connect with friends and followers</span>
+                    <span>{{ _('Connect with friends and followers') }}</span>
                 </li>
                 <li>
                     <i class="bi bi-megaphone-fill"></i>
-                    <span>Share your thoughts and updates</span>
+                    <span>{{ _('Share your thoughts and updates') }}</span>
                 </li>
                 <li>
                     <i class="bi bi-compass-fill"></i>
-                    <span>Discover new content and people</span>
+                    <span>{{ _('Discover new content and people') }}</span>
                 </li>
                 <li>
                     <i class="bi bi-shield-lock-fill"></i>
-                    <span>Your privacy and security matter</span>
+                    <span>{{ _('Your privacy and security matter') }}</span>
                 </li>
             </ul>
         </div>
@@ -44,8 +44,8 @@
             <!-- Login Card -->
             <div class="auth-card">
                 <div class="auth-header">
-                    <h1><i class="bi bi-door-open-fill"></i> Sign In</h1>
-                    <p class="auth-subtitle">Welcome back! Please enter your credentials</p>
+                    <h1><i class="bi bi-door-open-fill"></i> {{ _('Sign In') }}</h1>
+                    <p class="auth-subtitle">{{ ('Welcome back! Please enter your credentials') }}</p>
                 </div>
                 
                 <form action="" method="post" novalidate class="auth-form">
@@ -94,7 +94,7 @@
                 
                 <div class="auth-links">
                     <a href="{{ url_for('reset_password_request') }}" class="auth-link">
-                        <i class="bi bi-key-fill"></i> Forgot Password? Click to reset it
+                        <i class="bi bi-key-fill"></i> {{ _('Forgot Password? Click to reset it') }}
                     </a>
                 </div>
             </div>
@@ -102,18 +102,18 @@
             <!-- Create Account Card -->
             <div class="create-account-card">
                 <p class="create-account-text">
-                    Don't have an account yet?
+                    {{ _("Don't have an account yet?") }}
                 </p>
                 <a href="{{ url_for('register') }}" class="create-account-btn">
-                    <i class="bi bi-person-plus-fill"></i> Create New Account
+                    <i class="bi bi-person-plus-fill"></i> {{ _('Create New Account') }}
                 </a>
             </div>
             
             <!-- App Description -->
             <div class="app-description">
                 <p>
-                    <strong>Microblog</strong> is a modern social platform where you can share moments, connect with friends, 
-                    and discover interesting content from around the world.
+                    <strong>Microblog</strong> {{ _('is a modern social platform where you can share moments, connect with friends, 
+                    and discover interesting content from around the world.') }}
                 </p>
             </div>
         </div>
