@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-14 20:47+0800\n"
+"POT-Creation-Date: 2026-01-14 21:21+0800\n"
 "PO-Revision-Date: 2026-01-14 20:50+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,6 +18,107 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: app/templates/404.html:5
-msgid "File Not Found"
-msgstr "Archivo No Encontrado"
+#: app/__init__.py:22
+msgid "Please log in to access this page."
+msgstr "Por favor inicie sesión para acceder a esta página."
+
+#: app/forms.py:8 app/forms.py:14 app/forms.py:31
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: app/forms.py:9 app/forms.py:16 app/forms.py:59
+msgid "Password"
+msgstr "Contraseña"
+
+#: app/forms.py:10
+msgid "Remember Me"
+msgstr "Recordarme"
+
+#: app/forms.py:11 app/templates/login.html:47
+msgid "Sign In"
+msgstr "Iniciar Sesión"
+
+#: app/forms.py:15 app/forms.py:55
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: app/forms.py:17 app/forms.py:60
+msgid "Repeat Password"
+msgstr "Repetir contraseña"
+
+#: app/forms.py:18
+msgid "Register"
+msgstr "Registrarse"
+
+#: app/forms.py:32
+msgid "About Me"
+msgstr "Sobre mí"
+
+#: app/forms.py:33 app/forms.py:46 app/forms.py:52
+msgid "Submit"
+msgstr "Enviar"
+
+#: app/forms.py:49
+msgid "Say something"
+msgstr "Di algo"
+
+#: app/forms.py:56 app/forms.py:61
+msgid "Request Password Reset"
+msgstr "Solicitar restablecimiento de contraseña"
+
+#: app/routes.py:32
+msgid "Your post is now live!"
+msgstr "¡Tu publicación ya está activa!"
+
+#: app/templates/_post.html:22
+#, python-format
+msgid "%(username)s said %(when)s"
+msgstr "%(username)s dijo %(when)s"
+
+#: app/templates/login.html:15
+msgid "Microblog"
+msgstr "Microblog"
+
+#: app/templates/login.html:19
+msgid ""
+"Connect with friends, share your thoughts, and explore the world around "
+"you on"
+msgstr "Conéctate con amigos, comparte tus pensamientos y explora el mundo a tu alrededor en"
+
+#: app/templates/login.html:25
+msgid "Connect with friends and followers"
+msgstr "Conéctate con amigos y seguidores"
+
+#: app/templates/login.html:29
+msgid "Share your thoughts and updates"
+msgstr "Comparte tus pensamientos y actualizaciones"
+
+#: app/templates/login.html:33
+msgid "Discover new content and people"
+msgstr "Descubre nuevo contenido y personas"
+
+#: app/templates/login.html:37
+msgid "Your privacy and security matter"
+msgstr "Tu privacidad y seguridad importan"
+
+#: app/templates/login.html:97
+msgid "Forgot Password? Click to reset it"
+msgstr "¿Olvidaste tu contraseña? Haz clic para restablecerla"
+
+#: app/templates/login.html:105
+msgid "Don't have an account yet?"
+msgstr "¿Aún no tienes una cuenta?"
+
+#: app/templates/login.html:108
+msgid "Create New Account"
+msgstr "Crear nueva cuenta"
+
+#: app/templates/login.html:115
+msgid ""
+"is a modern social platform where you can share moments, connect with "
+"friends, \n"
+"                    and discover interesting content from around the "
+"world."
+msgstr "es una plataforma social moderna donde puedes compartir momentos, conectar con amigos y descubrir contenido interesante de todo el mundo."
+
+
