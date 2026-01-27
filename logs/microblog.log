@@ -79,3 +79,5 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed
 2025-12-14 22:49:06,963 INFO: Microblog startup [in C:\Python\PythonFlask-Microblog\app\__init__.py:43]
 2025-12-14 22:49:43,064 INFO: Microblog startup [in C:\Python\PythonFlask-Microblog\app\__init__.py:43]
 2025-12-14 22:54:14,416 INFO: Microblog startup [in C:\Python\PythonFlask-Microblog\app\__init__.py:43]
+2026-01-27 22:19:53,391 INFO: Microblog startup [in C:\Python\PythonFlask-Microblog\app\__init__.py:95]
+2026-01-27 22:39:10,618 INFO: Microblog startup [in C:\Python\PythonFlask-Microblog\app\__init__.py:95]
